@@ -7,7 +7,8 @@ Meteor.methods
     check(postAttributes,
       title: String
       url: String)
-
+    postWithSameLink = Posts.findOne(url: postAttributes.url)
+    return {postExists: true, _id: postWithSameLink._id} if postWithSameLink
     user = Meteor.user()
 
     post = _.extend(postAttributes,
